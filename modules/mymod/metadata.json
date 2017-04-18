@@ -1,0 +1,9 @@
+{
+  "name": "mymod",
+  "version": "1.0.0",
+  "author": "Anton Kaminski",
+  "summary": "Deploy puppet-agent and puppetserver",
+  "license": "Freeware",
+  "source": "https://github.com/lestatk0",
+  "project_page": "https://github.com/lestatk0",
+}  
