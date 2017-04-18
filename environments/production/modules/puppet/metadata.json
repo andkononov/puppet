@@ -1,0 +1,26 @@
+{
+  "name": "puppet",
+  "version": "1.0.0",
+  "summary": "Puppet module for puppet :) ",
+  "author": "Artyom Bilun",
+  "description": "This module configures puppet depending on is_puppetmaster fact ",
+  "source": "https://github.com/mordaB/puppet",
+  "license": "Apache-2.0",
+  "dependencies": [
+    {
+      "name": "puppetlabs/puppetdb",
+      "version_requirement": "=5.1.2"
+    },
+
+    {
+      "name": "puppetlabs/apache",
+      "version_requirement": "=1.11.0"
+    },
+
+    {
+      "name": "spotify/puppetexplorer",
+      "version_requirement": "=1.1.1"
+    }
+
+  ]
+}
