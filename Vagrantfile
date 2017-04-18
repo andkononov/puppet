@@ -34,6 +34,6 @@ Vagrant.configure("2") do |config|
     yum install -y epel-release git vim
     yum install -y puppet
     git clone -b pavel_heraska https://github.com/kickman2l/puppet.git
-    puppet apply /home/vagrant/puppet/provision/modules/et/manifests/site.pp --modulepath=/home/vagrant/puppet/provision/modules
+    puppet apply /home/vagrant/puppet/provision/manifests/site.pp --modulepath=/home/vagrant/puppet/provision/modules
   SHELL
 end
