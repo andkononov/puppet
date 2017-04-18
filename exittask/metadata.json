@@ -1,0 +1,15 @@
+{
+  "name": "mtn-exittask",
+  "version": "0.1.0",
+  "author": "Siarhei Hreben",
+  "summary": "Module installs both puppet master and puppet client",
+  "license": "Apache-2.0",
+  "source": "https://github.com/shreben/puppet",
+  "project_page": "https://github.com/shreben/puppet",
+  "issues_url": "https://github.com/shreben/puppet/issues",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ],
+  "data_provider": null
+}
+
