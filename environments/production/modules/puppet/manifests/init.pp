@@ -21,18 +21,18 @@ class puppet{
     class { 'puppetdb':
       listen_address => '0.0.0.0',
       open_listen_port => true,
-      disable_ssl => true,
       require => Service['puppetserver']
     }
-    # Configure the Puppet master to use puppetdb
+
     class { 'puppetdb::master::config': 
         enable_reports => true,
     }
-    # class {'puppetexplorer':
-    # vhost_options => {
-    #   rewrites  => [ { rewrite_rule => ['^/api/metrics/v1/mbeans/puppetlabs.puppetdb.query.population:type=default,name=(.*)$  https://%{HTTP_HOST}/api/metrics/v1/mbeans/puppetlabs.puppetdb.population:name=$1 [R=301,L]'] } ] },
-    #   require => Class['puppetdb::master::config']
-    #}
+    
+    class {'puppetexplorer':
+    vhost_options => {
+      rewrites  => [ { rewrite_rule => ['^/api/metrics/v1/mbeans/puppetlabs.puppetdb.query.population:type=default,name=(.*)$  https://%{HTTP_HOST}/api/metrics/v1/mbeans/puppetlabs.puppetdb.population:name=$1 [R=301,L]'] } ] },
+      require => Class['puppetdb::master::config']
+    }
   }
     
 }
