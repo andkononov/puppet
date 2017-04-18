@@ -5,7 +5,7 @@ class et {
   # Define variables for installation
   $agn_version = '1.10.0-1.el7'
   $srv_version = '2.7.2-1.el7'
-  $rep_url     = 'http://yum.puppetlabs.com/el/7/PC1/$basearch'
+  $rep_url     = 'http://yum.puppetlabs.com/el/7/PC1/x86_64/'
   $gpg_keys    = 'https://yum.puppetlabs.com/RPM-GPG-KEY-puppet https://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs'
 
   # Including needed repositories to the system
