@@ -13,7 +13,7 @@ Vagrant.configure("2") do |config|
       v.memory = 3072
       v.cpus = 2
     end
-    server.vm.hostname = "puppet.lab"
+    server.vm.hostname = "puppet"
     server.vm.network "private_network", ip: "192.168.33.10"
 
     server.vm.provision "puppet" do |puppet|

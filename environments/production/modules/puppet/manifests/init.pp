@@ -3,24 +3,36 @@ class puppet{
     notify { "Node ${::fqdn} is master!": }
     
     package { 'puppetserver':
-      ensure => 'installed',
+      ensure => 'latest',
     }
 
     file { "${settings::confdir}/autosign.conf":
       ensure  => 'file',
       source  => 'puppet:///modules/puppet/autosign.conf',
+      require => Package['puppetserver'],
+    }
+
+    service { 'puppetserver':
+      ensure => 'running',
+      enable => true,
+      require => File["${settings::confdir}/autosign.conf"]
     }
 
     class { 'puppetdb':
-      ssl_deploy_certs => true,
       listen_address => '0.0.0.0',
+      open_listen_port => true,
+      disable_ssl => true,
+      require => Service['puppetserver']
     }
     # Configure the Puppet master to use puppetdb
-    class { 'puppetdb::master::config': }
-    class {'puppetexplorer':
-    vhost_options => {
-      rewrites  => [ { rewrite_rule => ['^/api/metrics/v1/mbeans/puppetlabs.puppetdb.query.population:type=default,name=(.*)$  https://%{HTTP_HOST}/api/metrics/v1/mbeans/puppetlabs.puppetdb.population:name=$1 [R=301,L]'] } ] }
+    class { 'puppetdb::master::config': 
+        enable_reports => true,
     }
+    # class {'puppetexplorer':
+    # vhost_options => {
+    #   rewrites  => [ { rewrite_rule => ['^/api/metrics/v1/mbeans/puppetlabs.puppetdb.query.population:type=default,name=(.*)$  https://%{HTTP_HOST}/api/metrics/v1/mbeans/puppetlabs.puppetdb.population:name=$1 [R=301,L]'] } ] },
+    #   require => Class['puppetdb::master::config']
+    #}
   }
     
 }
