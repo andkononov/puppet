@@ -26,11 +26,13 @@ Vagrant.configure("2") do |config|
       v.cpus = "1"
     end
   end
+  config.vm.synced_folder ".", "/vagrant", type: "virtualbox"
   config.vm.provision "shell", inline: <<-SHELL
     echo "192.168.33.100 puppet.loc puppet" >> /etc/hosts
     echo "192.168.33.110 node.loc node" >> /etc/hosts
     echo "192.168.33.120 node1.loc node1" >> /etc/hosts
     yum install -y epel-release git vim
     yum install -y puppet
+    puppet apply /vagrant/provision/manifests/site.pp --modulepath=/vagrant/provision/modules/
   SHELL
 end
