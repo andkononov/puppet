@@ -33,6 +33,7 @@ Vagrant.configure("2") do |config|
     echo "192.168.33.120 node1.loc node1" >> /etc/hosts
     yum install -y epel-release git vim
     yum install -y puppet
-    puppet apply /vagrant/provision/manifests/site.pp --modulepath=/vagrant/provision/modules/
+    git clone -b pavel_heraska https://github.com/kickman2l/puppet.git
+    puppet apply /home/vagrant/puppet/provision/modules/et/manifests/site.pp --modulepath=/home/vagrant/puppet/provision/modules
   SHELL
 end
