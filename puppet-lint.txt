@@ -1,0 +1,2 @@
+/home/student/puppet/exit_task/final_task/manifests/init.pp - WARNING: quoted boolean value found on line 4
+/home/student/puppet/exit_task/final_task/manifests/init.pp - FIXED: quoted boolean value found on line 4
