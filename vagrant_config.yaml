@@ -1,0 +1,30 @@
+- host: master
+  ip: '192.168.33.55'
+  memory: '3072'
+  cpu_num: '2'
+  script:
+   - yum install -y nano wget unzip epel-release
+   - yum install -y puppet
+   - echo "192.168.33.55 puppet" >> /etc/hosts
+   - echo "192.168.33.65 client1" >> /etc/hosts
+   - systemctl restart network
+   - wget https://github.com/egskr/puppet_install/archive/master.zip
+   - unzip /home/vagrant/master.zip
+   - mv /home/vagrant/puppet_install-master/ /etc/puppet/modules/puppet_install
+   - puppet apply /etc/puppet/modules/puppet_install/site.pp --modulepath=/etc/puppet/modules
+
+- host: client1
+  ip: '192.168.33.65'
+  memory: '3072'
+  cpu_num:
+  script:
+   - yum install -y nano wget unzip epel-release
+   - yum install -y puppet
+   - echo "192.168.33.55 puppet" >> /etc/hosts
+   - echo "192.168.33.65 client1" >> /etc/hosts
+   - systemctl restart network
+   - wget https://github.com/egskr/puppet_install/archive/master.zip
+   - unzip /home/vagrant/master.zip
+   - mv /home/vagrant/puppet_install-master/ /etc/puppet/modules/puppet_install
+   - puppet apply /etc/puppet/modules/puppet_install/site.pp --modulepath=/etc/puppet/modules
+
