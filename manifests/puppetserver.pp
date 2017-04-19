@@ -4,6 +4,7 @@ class final_task::puppetserver {
   exec { 'root_bash_profile':
     command  => 'source /root/.bash_profile',
     provider => shell,
+    refreshonly => true,
   }
 
   package { 'puppet-repo':
