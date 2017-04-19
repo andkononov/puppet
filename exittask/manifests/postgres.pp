@@ -2,7 +2,7 @@
 class exittask::postgres {
 
   exec { 'yum install -y http://yum.postgresql.org/9.4/redhat/rhel-7-x86_64/pgdg-redhat94-9.4-2.noarch.rpm':
-    path   => ['/usr/bin', '/usr/sbin',],
+    path => ['/usr/bin', '/usr/sbin',],
   }
 
   package { 'postgresql94-server':
@@ -23,7 +23,7 @@ class exittask::postgres {
     owner   => 'postgres',
     group   => 'postgres',
     content => template('exittask/pg_hba.erb'),
-    notify => Service['postgresql-9.4'],
+    notify  => Service['postgresql-9.4'],
   }
 
   service { 'postgresql-9.4':
@@ -34,16 +34,16 @@ class exittask::postgres {
     hasrestart => true,
   }
 
-  $set_pass_cmd = "create user $exittask::params::pg_db_user password '$exittask::params::pg_db_pass'"
+  $set_pass_cmd = "create user ${exittask::params::pg_db_user} password '${exittask::params::pg_db_pass}'"
 
   exec { 'createuser':
-    cwd    => '/',
-    command => "sudo -u postgres psql -c \"$set_pass_cmd\"",
-    path   => ['/usr/bin', '/usr/sbin',],
+    cwd     => '/',
+    command => "sudo -u postgres psql -c \"${set_pass_cmd}\"",
+    path    => ['/usr/bin', '/usr/sbin',],
   }
   exec { 'createdb':
-    cwd    => '/',
+    cwd     => '/',
     command => 'sudo -u postgres psql -c "create database puppetdb owner puppetdb"',
-    path   => ['/usr/bin', '/usr/sbin',],
+    path    => ['/usr/bin', '/usr/sbin',],
   }
 }
