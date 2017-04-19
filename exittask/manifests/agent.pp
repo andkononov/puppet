@@ -13,5 +13,9 @@ class exittask::agent {
   host_aliases => 'puppet',
   ip           => '172.16.1.1',
   }
+  
+  module { 'dwerder/graphite':
+  ensure   => present,
+  }
 
 }

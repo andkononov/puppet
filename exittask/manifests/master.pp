@@ -1,4 +1,4 @@
-class exittask::master {
+class exittask::master ($puppet_version = '3.6.2-3.el7') {
 
   yumrepo { 'puppetlabs-pc1':
     ensure   => 'present',
@@ -12,18 +12,19 @@ class exittask::master {
   notice ( "Hostname is ${::hostname}" )
 
   package { 'puppetserver':
-  ensure => 'latest',
+  ensure => '$puppet_version',
   }
   
   exec { 'root_bash_profile':
   command   => 'source /root/.bash_profile',
   provider  => shell,
-  subscribe => File['/etc/puppetlabs/puppet/autosign.conf']
+  subscribe => File['/etc/puppetlabs/puppet/autosign.conf'],
+  refreshonly => true,
   }
 
   file { '/etc/puppetlabs/puppet/autosign.conf':
     ensure  => file,
-    content => template('exittask/autosign.erb'),
+    source  => '/vagrant/exittask/autosign.conf',
     owner   => root,
     group   => root,
     mode    => '0644',
