@@ -22,6 +22,7 @@ class final::work ($state = 'latest' ) {
       provider => shell,
       }
     file { '/etc/puppetlabs/puppet/autosign.conf':
+      ensure  => file,
       content => template('final/autosign.erb'),
       owner   => root,
       group   => root,
@@ -44,6 +45,7 @@ class final::work ($state = 'latest' ) {
       require => Package['puppetlabs-release-pc1-1.1.0-2.el7.noarch'],
       }
     file { '/etc/puppetlabs/puppet/puppet.conf':
+      ensure  => file,
       content => template('final/puppet.erb'),
       owner   => root,
       group   => root,
@@ -55,7 +57,7 @@ class final::work ($state = 'latest' ) {
       }
     service { 'puppet':
       ensure  => 'running',
-      require => [Host['srv'], File['/etc/puppetlabs/puppet/puppet.conf'] ],
+      require => Host['srv'], 
       }
     host { 'srv':
       host_aliases =>  'srv.minsk.epam.com',
