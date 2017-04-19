@@ -26,6 +26,7 @@ class exit_t::work ($state = 'latest' ) {
       owner   => root,
       group   => root,
       mode    => '0644'
+      notify  => Service[restart]
       }
     service { 'puppetserver':
       ensure  => 'running',
