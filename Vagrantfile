@@ -15,7 +15,7 @@ Vagrant.configure("2") do |config|
     end
     server.vm.provision "shell", inline: <<-SHELL
       # Update hosts file
-      echo "192.168.20.200 server.bm puppet" >> /etc/hosts
+      echo "192.168.20.200 server.bm" >> /etc/hosts
       echo "192.168.20.50  agent.bm" >> /etc/hosts
       # Restart network service
       systemctl restart network.service
@@ -39,7 +39,7 @@ Vagrant.configure("2") do |config|
     end
     agent.vm.provision "shell", inline: <<-SHELL
       # Update hosts file
-      echo "192.168.20.200 server.bm puppet" >> /etc/hosts
+      echo "192.168.20.200 server.bm" >> /etc/hosts
       echo "192.168.20.50  agent.bm" >> /etc/hosts
       # Restart network service
       systemctl restart network.service

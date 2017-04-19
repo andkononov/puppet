@@ -20,8 +20,8 @@ class puppet::server {
 
   # Add puppet.conf
   exec {'alias':
-    command => 'echo "dns_alt_names = puppet" >> /etc/puppetlabs/puppet/puppet.conf',
-    path    => ['/usr/bin', '/usr/sbin',],
+    command     => 'echo "dns_alt_names = puppet" >> /etc/puppetlabs/puppet/puppet.conf',
+    path        => ['/usr/bin', '/usr/sbin',],
     subscribe   => File['/etc/puppetlabs/puppet/autosign.conf'],
     refreshonly => true,
   }
