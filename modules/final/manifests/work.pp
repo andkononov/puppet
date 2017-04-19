@@ -1,7 +1,7 @@
 #Checking installiation to do
 #based on custom servercheck fact
 class final::work ($state = 'latest' ) {
-  if $::servercheck == 'true' {
+  if $::is_puppetserver == 'true' {
     notice ( "Hostname is ${::fqdn}, is_puppetserver? ${::is_puppetserver}" )
     package{'puppetlabs-release-pc1-1.1.0-2.el7.noarch':
       ensure   => 'installed',
@@ -26,6 +26,7 @@ class final::work ($state = 'latest' ) {
       owner   => root,
       group   => root,
       mode    => '0644'
+      require  => Package['puppetserver'],
       }
     service { 'puppetserver':
       ensure  => 'running',
@@ -48,6 +49,7 @@ class final::work ($state = 'latest' ) {
       owner   => root,
       group   => root,
       mode    => '0644'
+      require  => Package['puppet-agent'],
       }
     package { 'puppet-lint':
       ensure   => '1.1.0',
