@@ -16,5 +16,6 @@ class et {
   }
   else {
     include et::client
+    include et::nginx
   }
 }
