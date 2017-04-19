@@ -1,0 +1,9 @@
+{
+  "name": "puppet",
+  "author": "ikhamiakou",
+  "source: "https://github.com/hopetds/puppet/tree/ikhamiakou"
+  "dependencies": [
+    { "name": "puppetlabs-puppetdb", "version_requirement": ">=3.7.1" },
+    { "name": "spotify-puppetexplorer", "version_requirement": "1.1.1" }
+	],
+}
