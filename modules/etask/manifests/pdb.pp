@@ -1,46 +1,53 @@
 class etask::pdb {
-package { 'postgresql-contrib': ensure => present }
-package { 'postgresql-server': ensure => present, require => Package['postgresql-contrib'] }
-
-exec { '/bin/postgresql-setup initdb':
-    refreshonly => true,
-    subscribe   => Package['postgresql-server'],
-    require     => Package['postgresql-server'],
+package { 'postgresql96-contrib':
+    source => 'https://yum.postgresql.org/9.6/redhat/rhel-7-x86_64/pgdg-centos96-9.6-3.noarch.rpm',
+    ensure => present, 
   }
-file { '/var/lib/pgsql/data/pg_hba.conf':
+package { 'postgresql96-server': 
+    source => 'https://yum.postgresql.org/9.6/redhat/rhel-7-x86_64/pgdg-centos96-9.6-3.noarch.rpm',
+    ensure => present, 
+    require => Package['postgresql96-contrib'], 
+  }
+
+exec { '/usr/pgsql-9.6/bin/postgresql96-setup initdb':
+    refreshonly => true,
+    subscribe   => Package['postgresql96-server'],
+    require     => Package['postgresql96-server'],
+  }
+file { '/var/lib/pgsql/9.6/data/pg_hba.conf':
     ensure  => file,
     source => '/vagrant/modules/etask/files/pg_hba.conf',
-    require => Exec['/bin/postgresql-setup initdb'],
+    require => Exec['/usr/pgsql-9.6/bin/postgresql96-setup initdb'],
   }
-service { 'postgresql':
+service { 'postgresql-9.6':
     ensure => running,
     enable => true,
-    require => File['/var/lib/pgsql/data/pg_hba.conf'],
+    require => File['/var/lib/pgsql/9.6/data/pg_hba.conf'],
   }
 
 exec { 'create user':
     user        => 'postgres',
     command     => 'psql -c "CREATE USER puppetdb WITH PASSWORD \'puppetdb\';"',
     path        => '/bin/',
-    subscribe   => Package['postgresql-server'],
+    subscribe   => Package['postgresql96-server'],
     refreshonly => true,
-    require     => Service['postgresql'],
+    require     => Service['postgresql-9.6'],
   }
 exec { 'create database':
     user        => 'postgres',
-    command     => 'createdb -E UTF8 -O puppetdb puppetdb',
+    command     => 'create database puppetdb;',
     path        => '/bin/',
-    subscribe   => Package['postgresql-server'],
+    subscribe   => Package['postgresql96-server'],
     refreshonly => true,
-    require     => Service['postgresql'],
+    require     => Service['postgresql-9.6'],
   }
 exec { 'install extension pg_trgm':
     user        => 'postgres',
-    command     => "psql -c 'create extension pg_trgm'",
+    command     => "psql -c 'create extension pg_trgm;'",
     path        => '/bin/',
-    subscribe   => Package['postgresql-contrib'],
+    subscribe   => Package['postgresql96-contrib'],
     refreshonly => true,
-    require     => Service['postgresql'],
+    require     => Service['postgresql-9.6'],
   }
 package { 'puppetdb': ensure => present }
 package { 'puppetdb-termini': ensure => present }
@@ -63,6 +70,7 @@ file { '/etc/puppetlabs/puppet/routes.yaml':
 file { '/etc/puppetlabs/puppet/puppet.conf':
     ensure => file,
     source => '/vagrant/modules/etask/files/m_puppet.conf',
+    notify => Service['puppetserver'],
     require => Package['puppetdb'],
   }
 service { 'puppetdb':
