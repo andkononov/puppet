@@ -38,5 +38,7 @@ echo "192.168.56.107   node1 node1.mnt.com" >> /etc/hosts
 yum install -y epel-release
 yum install -y puppet
 puppet apply /vagrant/manifests/site.pp --modulepath=/vagrant/modules
+cp /vagrant/haproxy/site.pp /etc/puppetlabs/code/environments/production/manifests/
+cp -r /vagrant/haproxy/modules/haproxy /etc/puppetlabs/code/environments/production/modules/
 SHELL
 end
