@@ -8,3 +8,5 @@ echo '192.168.33.200   srv puppet-srv.epam.com' >> /etc/hosts
 echo '192.168.33.205   agent puppet-n1-srv.epam.com' >> /etc/hosts
 
 systemctl restart network.service
+
+# puppet apply /vagrant/site.pp --modulepath=/vagrant/modules

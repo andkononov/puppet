@@ -10,4 +10,6 @@ echo '192.168.33.205   agent puppet-n1-srv.epam.com' >> /etc/hosts
 
 systemctl restart network.service
 
+#puppet apply /vagrant/exit_t/manifests/init.pp --modulepath=/vagrant/exit_t
+
 

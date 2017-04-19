@@ -11,8 +11,18 @@ Vagrant.configure("2") do |config|
 	  server.name = "puppet-srv"
 	  server.cpus = 2
 	  server.memory = 4560
-        srv.vm.provision "shell", path: "srv.sh"
-	end
+        end
+#        srv.vm.provision "shell", path: "srv.sh"
+        srv.vm.provision "shell", inline: <<-SHELL
+        echo '192.168.33.200   srv puppet-srv.epam.com' >> /etc/hosts
+        echo '192.168.33.205   agent puppet-n1-srv.epam.com' >> /etc/hosts
+        yum install -y epel-release facter vim ruby
+        yum install -y puppet
+        systemctl restart network.service
+        source ~/.bashrc
+        puppet apply /vagrant/site.pp --modulepath=/vagrant/modules
+        echo " === Provision puppet server complete === "
+        SHELL
   end     
 
   config.vm.define "agent" do |agent|
@@ -23,9 +33,19 @@ Vagrant.configure("2") do |config|
 	  node.name = "node"
 	  node.cpus = 2
 	  node.memory = 1024
-        agent.vm.provision "shell", path: "agent.sh"
-	end
-  end 
+        end
+#        agent.vm.provision "shell", path: "agent.sh"
+        agent.vm.provision "shell", inline: <<-SHELL
+        echo '192.168.33.200   srv puppet-srv.epam.com' >> /etc/hosts
+        echo '192.168.33.205   agent puppet-n1-srv.epam.com' >> /etc/hosts
+        yum install -y epel-release facter vim ruby
+        yum install -y puppet
+        systemctl restart network.service
+        source ~/.bashrc
+        puppet apply /vagrant/site.pp --modulepath=/vagrant/modules
+        echo " === Provision puppet agent complete === "
+        SHELL
+        end 
 end
 
 
