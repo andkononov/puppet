@@ -1,0 +1,14 @@
+{
+  "name": "Final_task",
+  "version": "1.0.1",
+  "author": "Aleh_Slesarenka",
+  "summary": "Installation of Puppet server&agent",
+  "license": "Open_source",
+  "source": "github.com",
+  "project_page": "puppet.com",
+  "issues_url": "github.com",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ],
+  "data_provider": null
+}
