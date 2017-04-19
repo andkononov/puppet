@@ -1,0 +1,18 @@
+$TTL 86400
+@   IN  SOA     dns.kuzniatsou.local. root.kuzniatsou.local. (
+        2011071001  ;Serial
+        3600        ;Refresh
+        1800        ;Retry
+        604800      ;Expire
+        86400       ;Minimum TTL
+)
+@       IN  NS          dns.kuzniatsou.local.
+@       IN  A           192.168.33.110
+@       IN  A           192.168.33.100
+@       IN  A           192.168.33.101
+dns       IN  A   192.168.33.110
+puppet       IN  A   192.168.33.100
+master    IN  A   192.168.33.100
+node1     IN  A   192.168.33.101
+node2     IN  A   192.168.33.102
+_x-puppet._tcp.kuzniatsou.local. IN SRV 0 5 8140 master
