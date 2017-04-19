@@ -15,19 +15,19 @@ class exittask::explorer inherits exittask {
 
   file { '/etc/pki/rpm-gpg/RPM-GPG-KEY-puppetexplorer':
     ensure => file,
-    source => 'puppet:///modules/puppetexplorer/RPM-GPG-KEY-puppetexplorer',
+    source => 'puppet:///modules/exittask/RPM-GPG-KEY-puppetexplorer',
     before => Yumrepo['puppetexplorer'],
   }
 
   yumrepo { 'puppetexplorer':
-    ensure        => present,
-    descr         => 'Puppet Explorer',
-    baseurl       => 'http://yum.puppetexplorer.io/',
-    enabled       => true,
+    ensure  => present,
+    descr   => 'Puppet Explorer',
+    baseurl => 'http://yum.puppetexplorer.io/',
+    enabled => true,
     gpgcheck      => 0,
     repo_gpgcheck => 1,
     gpgkey        => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-puppetexplorer',
-    before        => Package['puppetexplorer'],
+    before  => Package['puppetexplorer'],
   }
 
   package { 'puppetexplorer':

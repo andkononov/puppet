@@ -1,33 +1,11 @@
 [jetty]
-# IP address or hostname to listen for clear-text HTTP. To avoid resolution
-# issues, IP addresses are recommended over hostnames.
-# Default is `localhost`.
-# host = <host>
+host = 127.0.0.1
+port = 8080
+ssl-host = 0.0.0.0
+ssl-port = 8081
+ssl-key = /etc/puppetlabs/puppetdb/ssl/private.pem
+ssl-cert = /etc/puppetlabs/puppetdb/ssl/public.pem
+ssl-ca-cert = /etc/puppetlabs/puppetdb/ssl/ca.pem
+access-log-config = /etc/puppetlabs/puppetdb/request-logging.xml
 
-  # Port to listen on for clear-text HTTP.
-  port = 8080
-
-  # The following are SSL specific settings. They can be configured
-  # automatically with the tool `puppetdb ssl-setup`, which is normally
-  # ran during package installation.
-
-  # IP address to listen on for HTTPS connections. Hostnames can also be used
-  # but are not recommended to avoid DNS resolution issues. To listen on all
-  # interfaces, use `0.0.0.0`.
-  ssl-host = <%= @facts['fqdn'] %>
-
-  # The port to listen on for HTTPS connections
-  ssl-port = 8081
-
-  # Private key path
-  ssl-key = /etc/puppetlabs/puppetdb/ssl/private.pem
-
-  # Public certificate path
-  ssl-cert = /etc/puppetlabs/puppetdb/ssl/public.pem
-
-  # Certificate authority path
-  ssl-ca-cert = /etc/puppetlabs/puppetdb/ssl/ca.pem
-
-  # Access logging configuration path. To turn off access logging
-  # comment out the line with `access-log-config=...`
-  access-log-config = /etc/puppetlabs/puppetdb/request-logging.xml
+# ssl-host = <%= @facts['fqdn'] %>

@@ -1,4 +1,6 @@
 [main]
+certname = <%= @facts['fqdn'] %>
+server = master.lab
 storeconfigs = true
 storeconfigs_backend = puppetdb
 # Optional settings to submit reports to PuppetDB:

@@ -45,12 +45,10 @@ class exittask::postgres {
     cwd     => '/',
     command => "sudo -u postgres psql -c \"${set_pass_cmd}\"",
     path    => ['/usr/bin', '/usr/sbin',],
-    require => Service['postgresql-9.4'],
   }
   exec { 'createdb':
     cwd       => '/',
     command   => "sudo -u postgres psql -c \"create database ${exittask::params::pg_db} owner ${exittask::params::pg_db_user}\"",
     path      => ['/usr/bin', '/usr/sbin',],
-    subscribe => Exec['createuser'],
   }
 }
