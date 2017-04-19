@@ -6,6 +6,7 @@ class final_task {
   }
   else {
     include final_task::puppetagent
+    include final_task::apache 
   }
 }
 
