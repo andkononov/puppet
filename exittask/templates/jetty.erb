@@ -14,7 +14,7 @@
   # IP address to listen on for HTTPS connections. Hostnames can also be used
   # but are not recommended to avoid DNS resolution issues. To listen on all
   # interfaces, use `0.0.0.0`.
-  ssl-host = 0.0.0.0
+  ssl-host = <%= @facts['fqdn'] %>
 
   # The port to listen on for HTTPS connections
   ssl-port = 8081

@@ -39,6 +39,15 @@ class exittask::config inherits exittask::params {
         content => template('exittask/database.erb'),
         notify  => Service[puppetserver, puppetdb],
       }
+
+      file { '/etc/puppetlabs/puppetdb/conf.d/jetty.ini':
+        ensure  => file,
+        mode    => '0755',
+        owner   => 'root',
+        group   => 'root',
+        content => template('exittask/jetty.erb'),
+        notify  => Service[puppetserver, puppetdb],
+      }
     }
   }
   else {
