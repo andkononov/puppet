@@ -1,4 +1,4 @@
-class exittask::master ($puppet_version = '3.6.2-3.el7') {
+class exittask::master ($puppet_version = '2.7.2-1.el7') {
 
   yumrepo { 'puppetlabs-pc1':
     ensure   => 'present',
@@ -12,7 +12,7 @@ class exittask::master ($puppet_version = '3.6.2-3.el7') {
   notice ( "Hostname is ${::hostname}" )
 
   package { 'puppetserver':
-  ensure => '$puppet_version',
+  ensure => $puppet_version,
   }
   
   exec { 'root_bash_profile':
