@@ -12,8 +12,7 @@ Vagrant.configure("2") do |config|
       machine.memory = 4096
     end
     master.vm.provision "shell", inline: <<-SHELL
-      rpm -Uvh http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-9.noarch.rpm
-#      rpm -Uvh https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm
+      yum install -y epel-release.noarch
       yum install -y puppet
       puppet apply -e 'include exittask' --modulepath=/vagrant/
     SHELL
@@ -29,8 +28,7 @@ Vagrant.configure("2") do |config|
       machine.memory = 2048
     end
     agent.vm.provision "shell", inline: <<-SHELL
-      rpm -Uvh http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-9.noarch.rpm
-#      rpm -Uvh https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm
+      yum install -y epel-release.noarch
       yum install -y puppet
       puppet apply -e 'include exittask' --modulepath=/vagrant/
     SHELL
