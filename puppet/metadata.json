@@ -1,0 +1,9 @@
+{
+  "name": "puppet_install",
+  "version": "0.1.0",
+  "author": "ac",
+  "summary": "deploy puppet-server and puppet-agent",
+  "license": "Freeware",
+  "source": "https://github.com/sunofsparda/puppet",
+  "project_page": "https://github.com/sunofsparda/puppet",
+}
