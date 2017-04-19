@@ -16,6 +16,7 @@ class exittask::explorer inherits exittask {
   exec { 'yum install -y puppetexplorer-2.0.0.noarch.rpm':
     cwd  => '/vagrant/modules/exittask/files',
     path => ['/usr/bin', '/usr/sbin',],
+    onlyif  => [ '[ ! -d /usr/share/puppetexplorer ]' ]
   }
 
   file { '/usr/share/puppetexplorer/config.js':

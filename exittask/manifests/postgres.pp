@@ -15,6 +15,7 @@ class exittask::postgres {
   }
 
   exec { '/usr/pgsql-9.4/bin/postgresql94-setup initdb':
+    path    => ['/usr/bin', '/usr/sbin', ],
     require => Package[postgresql94-server],
     onlyif  => [ '[ ! -f /var/lib/pgsql/9.4/initdb.log ]' ],
   }
@@ -42,10 +43,12 @@ class exittask::postgres {
     cwd     => '/',
     command => "sudo -u postgres psql -c \"${set_pass_cmd}\"",
     path    => ['/usr/bin', '/usr/sbin',],
+    before  => Exec['/usr/pgsql-9.4/bin/postgresql94-setup initdb'],
   }
   exec { 'createdb':
-    cwd     => '/',
-    command => 'sudo -u postgres psql -c "create database puppetdb owner puppetdb"',
-    path    => ['/usr/bin', '/usr/sbin',],
+    cwd       => '/',
+    command   => "sudo -u postgres psql -c \"create database ${exittask::params::pg_db} owner ${exittask::params::pg_db_user}\"",
+    path      => ['/usr/bin', '/usr/sbin',],
+    subscribe => Exec['createuser'],
   }
 }
