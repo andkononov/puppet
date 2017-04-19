@@ -43,6 +43,12 @@ class exit_t::work ($state = 'latest' ) {
       ensure  => 'latest',
       require => Package['puppetlabs-release-pc1-1.1.0-2.el7.noarch'],
       }
+    file { '/etc/puppetlabs/puppet/puppet.conf':
+      content => template('/vagrant/exittask/templates/puppet.erb'),
+      owner   => root,
+      group   => root,
+      mode    => '0644'
+      }
     package { 'puppet-lint':
       ensure   => '1.1.0',
       provider => 'gem',
@@ -52,7 +58,7 @@ class exit_t::work ($state = 'latest' ) {
       require => Host['srv'],
       }
     host { 'srv':
-      host_aliases =>  'puppet-srv.minsk.epam.com',
+      host_aliases =>  'puppet-srv.epam.com',
       ip           => '192.168.33.200',
       }
   }
