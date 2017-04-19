@@ -1,6 +1,6 @@
 Facter.add(:definition) do
   setcode do
-    Facter.value(:fqdn) == 'server.lab'
+    Facter.value(:hostname) == 'server'
   end
 end
 
