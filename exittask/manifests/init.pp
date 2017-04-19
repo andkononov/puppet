@@ -48,7 +48,7 @@ class exittask inherits exittask::params {
     notify { "${::fqdn} is a puppet server node! Starting server installation...": }
     include exittask::install
     include exittask::config
-    
+
 
     if $is_puppetdb {
       include exittask::postgres

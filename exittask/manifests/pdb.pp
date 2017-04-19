@@ -25,7 +25,7 @@ class exittask::pdb inherits exittask::params {
   file { '/etc/puppetlabs/puppet/routes.yaml':
     ensure => file,
     source => 'puppet:///modules/exittask/routes.yaml',
-    notify  => Service['puppetserver'],
+    notify => Service['puppetserver'],
   }
 
   file { '/etc/puppetlabs/puppet/puppetdb.conf':

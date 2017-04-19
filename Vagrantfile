@@ -6,8 +6,8 @@ Vagrant.configure('2') do |config|
   config.vm.box = 'sbeliakou/centos-7.2-x86_64'
 
   # define nodes
-  # nodes = { 'node1.lab' => '10.0.0.1', 'node2.lab' => '10.0.0.2', 'master.lab' => '10.0.0.3' }
-  nodes = { 'master.lab' => '10.0.0.2', 'node1.lab' => '10.0.0.3' }
+  nodes = { 'master.lab' => '10.0.0.2', 'node1.lab' => '10.0.0.3', 'node2.lab' => '10.0.0.4', 'node3.lab' => '10.0.0.5' }
+  # nodes = { 'master.lab' => '10.0.0.2', 'node1.lab' => '10.0.0.3' }
 
   # make hosts file
   hosts = []
@@ -28,8 +28,7 @@ Vagrant.configure('2') do |config|
       item.vm.provision 'shell' do |s|
         s.inline = <<-SHELL
         systemctl restart network.service
-	      grep lab /etc/hosts
-        [ $? != 0 ] && echo -e ${1} >> /etc/hosts
+	      echo -e ${1} >> /etc/hosts
         yum install -y https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm
         yum install -y puppet-agent
 	      /opt/puppetlabs/bin/puppet apply --modulepath=/vagrant/modules /vagrant/modules/exittask/examples/init.pp

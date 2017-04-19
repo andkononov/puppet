@@ -20,14 +20,14 @@ class exittask::explorer inherits exittask {
   }
 
   yumrepo { 'puppetexplorer':
-    ensure  => present,
-    descr   => 'Puppet Explorer',
-    baseurl => 'http://yum.puppetexplorer.io/',
-    enabled => true,
+    ensure        => present,
+    descr         => 'Puppet Explorer',
+    baseurl       => 'http://yum.puppetexplorer.io/',
+    enabled       => true,
     gpgcheck      => 0,
     repo_gpgcheck => 1,
     gpgkey        => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-puppetexplorer',
-    before  => Package['puppetexplorer'],
+    before        => Package['puppetexplorer'],
   }
 
   package { 'puppetexplorer':
@@ -35,8 +35,8 @@ class exittask::explorer inherits exittask {
   }
 
   file { '/usr/share/puppetexplorer/config.js':
-    ensure => file,
-    source => 'puppet:///modules/exittask/config.js',
+    ensure  => file,
+    source  => 'puppet:///modules/exittask/config.js',
     require => Package['puppetexplorer'],
   }
 

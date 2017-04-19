@@ -27,7 +27,7 @@ class exittask::postgres {
     group   => 'postgres',
     content => template('exittask/pg_hba.erb'),
     notify  => Service['postgresql-9.4'],
-    require  => Exec['/usr/pgsql-9.4/bin/postgresql94-setup initdb'],
+    require => Exec['/usr/pgsql-9.4/bin/postgresql94-setup initdb'],
   }
 
   service { 'postgresql-9.4':
