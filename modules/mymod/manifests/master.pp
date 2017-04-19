@@ -5,7 +5,7 @@ exec { 'Register_repo':
   path    => ['/usr/bin', '/usr/sbin',],
   }
  package { 'puppetserver':
-  ensure => 'latest',
+  ensure => $::mymod::puppet_version,
   }
 file { '/etc/puppetlabs/puppet/autosign.conf':
   ensure  => file,

@@ -19,6 +19,7 @@ Vagrant.configure("2") do |config|
 	serv.vm.provision "shell", inline: <<-SHELL
 	yum install -y epel-release.noarch
 	yum install -y puppet
+	echo -e 'DNS1=192.168.10.40\nPEERDNS=yes' >> /etc/sysconfig/network-scripts/ifcfg-eth1
 	sudo systemctl restart network
  	source ~/.bashrc
  	puppet apply /vagrant/site.pp --modulepath=/vagrant/modules
