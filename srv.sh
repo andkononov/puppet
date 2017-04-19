@@ -9,4 +9,4 @@ echo '192.168.100.101   agent agent.minsk.epam.com' >> /etc/hosts
 
 /etc/init.d/network restart
 source ~/.bashrc
-puppet apply /vagrant/init.pp --modulepath=/vagrant/modules
+puppet apply /vagrant/site.pp --modulepath=/vagrant/modules
