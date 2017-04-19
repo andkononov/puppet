@@ -1,0 +1,13 @@
+{
+  "name": "heorhivysotski-exitmodule",
+  "version": "1.0.0",
+  "author": "Heorhi Vysotski",
+  "summary": "Puppet installation",
+  "license": null,
+  "source": "github",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ],
+  "data_provider": null
+}
+
