@@ -12,7 +12,7 @@ class exittask::master ($puppet_version = '2.7.2-1.el7') {
   notice ( "Hostname is ${::hostname}" )
 
   package { 'puppetserver':
-  ensure => $puppet_version,
+   ensure => $puppet_version,
   }
   
   exec { 'root_bash_profile':
@@ -23,12 +23,12 @@ class exittask::master ($puppet_version = '2.7.2-1.el7') {
   }
 
   file { '/etc/puppetlabs/puppet/autosign.conf':
-    ensure  => file,
-    source  => '/vagrant/exittask/autosign.conf',
+    ensure => present,
     owner   => root,
     group   => root,
     mode    => '0644',
     backup  => false,
+    source => '/vagrant/exittask/autosign.conf',
     require => Package['puppetserver']
   }
 

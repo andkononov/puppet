@@ -14,8 +14,12 @@ class exittask::agent {
   ip           => '172.16.1.1',
   }
   
-  module { 'dwerder/graphite':
-  ensure   => present,
-  }
+#  module { 'dwerder/graphite':
+#  ensure   => present
+#  }
+
+exec { 'puppet module install dwerder-graphite':
+  path    => '/usr/bin'
+}
 
 }
