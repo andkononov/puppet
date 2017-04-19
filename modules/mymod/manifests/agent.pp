@@ -17,8 +17,10 @@ exec { 'hosts':
   path    => ['/usr/bin', '/usr/sbin',],
       }
 exec { '/etc/puppetlabs/puppet/puppet.conf':
-  command => 'echo "server = puppet-serv.minsk.com" >> /etc/puppetlabs/puppet/puppet.conf',
-  path    => ['/usr/bin', '/usr/sbin',],
-  require => Service['puppet']
+  command     => 'echo "server = puppet-serv.minsk.com" >> /etc/puppetlabs/puppet/puppet.conf',
+  path        => ['/usr/bin', '/usr/sbin',],
+  require     => Service['puppet'],
+  subscribe   => Package['puppet-agent'],
+  refreshonly => true
   }
 }
