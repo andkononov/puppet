@@ -2,7 +2,8 @@
 class exittask::postgres {
 
   exec { 'yum install -y http://yum.postgresql.org/9.4/redhat/rhel-7-x86_64/pgdg-redhat94-9.4-2.noarch.rpm':
-    path => ['/usr/bin', '/usr/sbin',],
+    path   => ['/usr/bin', '/usr/sbin',],
+    onlyif => [ '[ ! -f /etc/yum.repos.d/pgdg-94-redhat.repo ]' ],
   }
 
   package { 'postgresql94-server':
@@ -14,7 +15,8 @@ class exittask::postgres {
   }
 
   exec { '/usr/pgsql-9.4/bin/postgresql94-setup initdb':
-    require => Package[postgresql94-server]
+    require => Package[postgresql94-server],
+    onlyif  => [ '[ ! -f /var/lib/pgsql/9.4/initdb.log ]' ],
   }
 
   file { '/var/lib/pgsql/9.4/data/pg_hba.conf':

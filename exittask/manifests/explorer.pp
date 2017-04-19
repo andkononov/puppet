@@ -26,8 +26,8 @@ class exittask::explorer inherits exittask {
   file { '/etc/httpd/conf.d/25-ppuppetexplorer.conf':
     ensure  => file,
     mode    => '0755',
-    owner   => 'httpd',
-    group   => 'httpd',
+    owner   => 'root',
+    group   => 'root',
     content => template('exittask/25-puppetexplorer.erb'),
     notify  => Service['httpd'],
   }
