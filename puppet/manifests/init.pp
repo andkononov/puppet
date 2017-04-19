@@ -1,6 +1,6 @@
 class puppet {
 
-  if $::definition == true {
+  if $::definition {
     include puppet::master_inst
   }
   else {
