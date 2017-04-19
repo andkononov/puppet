@@ -16,16 +16,6 @@ class exitmodule::master (
     require => Yumrepo['puppetlabs-pc1']
   }
 
-  file { '/etc/sysconfig/puppetserver':
-    ensure  => file,
-    content => template('exitmodule/puppet.erb'),
-    owner   => root,
-    group   => root,
-    mode    => '0644',
-    backup  => false,
-    require => Package['puppetserver']
-  }
-
   file { '/etc/puppetlabs/puppet/autosign.conf':
     ensure  => file,
     content => template('exitmodule/autosign.erb'),
