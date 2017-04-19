@@ -1,3 +1,4 @@
+#init Mymod 
 class mymod {
   if $::is_puppetmaster == 'true' {
     include mymod::master
