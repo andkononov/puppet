@@ -1,0 +1,14 @@
+{
+      "name": "puppet",
+      "version": "0.0.1",
+      "author": "Andrei Matveenko",
+      "license": "open source",
+      "summary": "This module setup the latest version puppet-server and puppet-agent",
+      "source": "https://github.com/matvandrew/puppet",
+      "operatingsystem_support": [
+        {
+        "operatingsystem":"RedHat",
+        "operatingsystemrelease":[ "7.0" ]
+        },
+      ]
+    }
