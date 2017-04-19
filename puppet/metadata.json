@@ -1,5 +1,5 @@
 {
-  "name": "puppet_install",
+  "name": "puppet",
   "version": "0.1.0",
   "author": "ac",
   "summary": "deploy puppet-server and puppet-agent",
