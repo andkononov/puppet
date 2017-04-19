@@ -13,15 +13,31 @@ class exittask::explorer inherits exittask {
     hasrestart => true,
   }
 
-  exec { 'yum install -y puppetexplorer-2.0.0.noarch.rpm':
-    cwd  => '/vagrant/modules/exittask/files',
-    path => ['/usr/bin', '/usr/sbin',],
-    onlyif  => [ '[ ! -d /usr/share/puppetexplorer ]' ]
+  file { '/etc/pki/rpm-gpg/RPM-GPG-KEY-puppetexplorer':
+    ensure => file,
+    source => 'puppet:///modules/puppetexplorer/RPM-GPG-KEY-puppetexplorer',
+    before => Yumrepo['puppetexplorer'],
+  }
+
+  yumrepo { 'puppetexplorer':
+    ensure        => present,
+    descr         => 'Puppet Explorer',
+    baseurl       => 'http://yum.puppetexplorer.io/',
+    enabled       => true,
+    gpgcheck      => 0,
+    repo_gpgcheck => 1,
+    gpgkey        => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-puppetexplorer',
+    before        => Package['puppetexplorer'],
+  }
+
+  package { 'puppetexplorer':
+    ensure => installed,
   }
 
   file { '/usr/share/puppetexplorer/config.js':
     ensure => file,
     source => 'puppet:///modules/exittask/config.js',
+    require => Package['puppetexplorer'],
   }
 
   file { '/etc/httpd/conf.d/25-ppuppetexplorer.conf':

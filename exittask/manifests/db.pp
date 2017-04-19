@@ -10,7 +10,8 @@ class exittask::db {
   }
 
   package { 'puppetdb':
-    ensure => installed,
+    ensure  => installed,
+    require => Package['java-1.8.0-openjdk','puppetdb-termini'],
   }
 
   service { 'puppetdb':
@@ -19,5 +20,6 @@ class exittask::db {
     enable     => true,
     hasstatus  => true,
     hasrestart => true,
+    require    => Package[puppetdb],
   }
 }

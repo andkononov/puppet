@@ -27,6 +27,7 @@ class exittask::postgres {
     group   => 'postgres',
     content => template('exittask/pg_hba.erb'),
     notify  => Service['postgresql-9.4'],
+    require  => Exec['/usr/pgsql-9.4/bin/postgresql94-setup initdb'],
   }
 
   service { 'postgresql-9.4':
@@ -35,6 +36,7 @@ class exittask::postgres {
     enable     => true,
     hasstatus  => true,
     hasrestart => true,
+    require    => Exec['/usr/pgsql-9.4/bin/postgresql94-setup initdb'],
   }
 
   $set_pass_cmd = "create user ${exittask::params::pg_db_user} password '${exittask::params::pg_db_pass}'"
@@ -43,7 +45,7 @@ class exittask::postgres {
     cwd     => '/',
     command => "sudo -u postgres psql -c \"${set_pass_cmd}\"",
     path    => ['/usr/bin', '/usr/sbin',],
-    before  => Exec['/usr/pgsql-9.4/bin/postgresql94-setup initdb'],
+    require => Service['postgresql-9.4'],
   }
   exec { 'createdb':
     cwd       => '/',

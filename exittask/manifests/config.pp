@@ -11,6 +11,11 @@ class exittask::config inherits exittask::params {
       content => template('exittask/autosign.erb')
     }
 
+    file { '/etc/puppetlabs/code/environments/production/manifests/site.pp':
+      ensure => file,
+      source => 'puppet:///modules/exittask/site.pp',
+    }
+
     if $is_puppetdb {
       file { '/etc/puppetlabs/puppet/puppet.conf':
         ensure => file,

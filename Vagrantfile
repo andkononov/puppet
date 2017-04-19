@@ -7,7 +7,7 @@ Vagrant.configure('2') do |config|
 
   # define nodes
   # nodes = { 'node1.lab' => '10.0.0.1', 'node2.lab' => '10.0.0.2', 'master.lab' => '10.0.0.3' }
-  nodes = { 'node1.lab' => '10.0.0.1', 'master.lab' => '10.0.0.3' }
+  nodes = { 'master.lab' => '10.0.0.2', 'node1.lab' => '10.0.0.3' }
 
   # make hosts file
   hosts = []
@@ -21,18 +21,18 @@ Vagrant.configure('2') do |config|
 
       item.vm.provider 'virtualbox' do |v|
         v.name = node
-	v.memory = 4096 if node.include? 'master'
+	      v.memory = 4096 if node.include? 'master'
         v.linked_clone = true
       end
 
       item.vm.provision 'shell' do |s|
         s.inline = <<-SHELL
         systemctl restart network.service
-	grep lab /etc/hosts
+	      grep lab /etc/hosts
         [ $? != 0 ] && echo -e ${1} >> /etc/hosts
         yum install -y https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm
         yum install -y puppet-agent
-	/opt/puppetlabs/bin/puppet apply --modulepath=/vagrant/modules /vagrant/modules/exittask/examples/init.pp
+	      /opt/puppetlabs/bin/puppet apply --modulepath=/vagrant/modules /vagrant/modules/exittask/examples/init.pp
         SHELL
         s.args = [ hosts.join('\n') ]
       end
