@@ -1,8 +1,8 @@
 class puppet_install::params
 {
-  $baseurl = 'http://yum.puppetlabs.com/el/7/PC1/x86_64/'
-  $gpgkey = 'https://yum.puppetlabs.com/RPM-GPG-KEY-puppet https://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs'
-  $autosign_path = '/etc/puppetlabs/puppet/autosign.conf'
+  $baseurl = 'XXXhttp://yum.puppetlabs.com/el/7/PC1/x86_64/'
+  $gpgkey = 'XXXhttps://yum.puppetlabs.com/RPM-GPG-KEY-puppet https://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs'
+  $autosign_path = 'XXX/etc/puppetlabs/puppet/autosign.conf'
 
 
 }
