@@ -1,5 +1,5 @@
 class exitmodule {
-  if $::is_puppetmatser == 'true' {
+  if $::is_puppetmaster == 'true' {
     include exitmodule::master
   }
   else {
