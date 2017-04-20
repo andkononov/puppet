@@ -1,5 +1,5 @@
 class exittask {
-notice('the line below is variables is_puppetserver:')
+notice('master? :')
 notice($::is_puppetmaster)
 
 if $::is_puppetmaster == 'true' {

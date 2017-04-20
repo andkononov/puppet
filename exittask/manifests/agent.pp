@@ -1,26 +1,27 @@
 class exittask::agent {
 
-#  yumrepo { 'puppetlabs-pc1':
-#    ensure   => 'present',
-#    baseurl  => 'http://yum.puppetlabs.com/el/7/PC1/$basearch',
-#    descr    => 'Puppet Labs PC1 Repository el 7 - $basearch',
-#    enabled  => '1',
-#    gpgcheck => '1',
-#    gpgkey   => 'https://yum.puppetlabs.com/RPM-GPG-KEY-puppet https://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs'
-#  }
-
   exec { 'Register_repo':
       command => 'rpm -Uvh https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm',
       path    => ['/usr/bin', '/usr/sbin',],
   }
- 
+
+  package { 'puppet-agent':
+  ensure  => 'latest',
+  require => Exec['Register_repo']
+  }  
+  
   service { 'puppet':
   ensure  => 'running',
+  require => Package['puppet-agent'],
   }
   
   host { 'master.epbyminw2695.minsk.epam.com':
   host_aliases => 'puppet',
-  ip           => '172.16.1.1',
+  ip           => '172.16.10.10',
+  }
+  
+  host { 'agent.epbyminw2695.minsk.epam.com':
+  ip           => '172.16.10.20',
   }
   
   exec { '/etc/puppetlabs/puppet/puppet.conf':
@@ -29,14 +30,11 @@ class exittask::agent {
   require     => Service['puppet'],
   refreshonly => true
   }
-  
-  
-#  module { 'dwerder/graphite':
-#  ensure   => present
-#  }
 
-# exec { 'puppet module install dwerder-graphite':
-#   path    => '/usr/bin'
-# }
-
+  exec { 'test':
+    command => '/opt/puppetlabs/bin/puppet agent -t',
+    path    => ['/usr/bin', '/usr/sbin',],
+    require => Package['puppet-agent']
+  }
+  
 }
