@@ -1,0 +1,15 @@
+[main]
+certname = <%= @facts['fqdn'] %>
+server = master.lab
+runinterval = 1m
+storeconfigs = true
+storeconfigs_backend = puppetdb
+# Optional settings to submit reports to PuppetDB:
+report = true
+reports = puppetdb
+[master]
+vardir = /opt/puppetlabs/server/data/puppetserver
+logdir = /var/log/puppetlabs/puppetserver
+rundir = /var/run/puppetlabs/puppetserver
+pidfile = /var/run/puppetlabs/puppetserver/puppetserver.pid
+codedir = /etc/puppetlabs/code

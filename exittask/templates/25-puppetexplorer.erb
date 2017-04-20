@@ -1,0 +1,47 @@
+# ************************************
+# Vhost template in module puppetlabs-apache
+# Managed by Puppet
+# ************************************
+
+<VirtualHost *:443>
+  ServerName <%= @facts['fqdn'] %>
+
+  ## Vhost docroot
+  DocumentRoot "/usr/share/puppetexplorer"
+
+  ## Directories, there should at least be a declaration for /usr/share/puppetexplorer
+
+  <Directory "/usr/share/puppetexplorer">
+    Options Indexes FollowSymLinks MultiViews
+    AllowOverride None
+    Require all granted
+  </Directory>
+
+  ## Logging
+  ErrorLog "/var/log/httpd/puppetexplorer_error_ssl.log"
+  ServerSignature Off
+  CustomLog "/var/log/httpd/puppetexplorer_access_ssl.log" combined
+
+  ## Proxy rules
+  ProxyRequests Off
+  ProxyPreserveHost Off
+  ProxyPass /api/pdb/query http://localhost:8080/pdb/query
+  ProxyPassReverse /api/pdb/query http://localhost:8080/pdb/query
+  ProxyPass /api/pdb/meta http://localhost:8080/pdb/meta
+  ProxyPassReverse /api/pdb/meta http://localhost:8080/pdb/meta
+  ProxyPass /api/metrics http://localhost:8080/metrics
+  ProxyPassReverse /api/metrics http://localhost:8080/metrics
+  ## Rewrite rules
+  RewriteEngine On
+
+  RewriteRule ^/api/metrics/v1/mbeans/puppetlabs.puppetdb.query.population:type=default,name=(.*)$  https://%{HTTP_HOST}/api/metrics/v1/mbeans/puppetlabs.puppetdb.population:name=$1 [R=301,L]
+
+
+  ## SSL directives
+  SSLEngine on
+  SSLCertificateFile      "/etc/pki/tls/certs/localhost.crt"
+  SSLCertificateKeyFile   "/etc/pki/tls/private/localhost.key"
+  SSLCACertificatePath    "/etc/pki/tls/certs"
+  # SSL Proxy directives
+  SSLProxyEngine On
+</VirtualHost>

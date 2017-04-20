@@ -1,0 +1,11 @@
+[jetty]
+host = 127.0.0.1
+port = 8080
+ssl-host = 0.0.0.0
+ssl-port = 8081
+ssl-key = /etc/puppetlabs/puppetdb/ssl/private.pem
+ssl-cert = /etc/puppetlabs/puppetdb/ssl/public.pem
+ssl-ca-cert = /etc/puppetlabs/puppetdb/ssl/ca.pem
+access-log-config = /etc/puppetlabs/puppetdb/request-logging.xml
+
+# ssl-host = <%= @facts['fqdn'] %>

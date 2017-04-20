@@ -1,0 +1,1 @@
+node default { class { '::exittask': } }
