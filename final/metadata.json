@@ -1,0 +1,10 @@
+{
+  "name": "final",
+  "version": "1.1.0",
+  "author": "Ivan_Manzhulin",
+  "summary": "Puppet and puppetserver installation",
+  "license": "Free",
+  "source": "https://github.com/ivanOKman/puppet",
+  "project_page": "https://github.com/ivanOKman/puppet",
+}
+
