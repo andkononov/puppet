@@ -34,7 +34,6 @@ Vagrant.configure("2") do |config|
       systemctl restart network
       puppet apply -e 'include exittask' --modulepath=/vagrant/
       puppet module install dwerder-graphite --version 7.0.0
-#      /opt/puppetlabs/bin/puppet module install dwerder-graphite --version 7.0.0
     SHELL
     end
 end
