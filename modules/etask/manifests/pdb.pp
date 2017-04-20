@@ -1,13 +1,15 @@
 class etask::pdb {
-package { 'postgresql96-contrib':
+file { '/tmp/postgresql-repo.rpm':
     source => 'https://yum.postgresql.org/9.6/redhat/rhel-7-x86_64/pgdg-centos96-9.6-3.noarch.rpm',
-    ensure => present, 
   }
-package { 'postgresql96-server': 
-    source => 'https://yum.postgresql.org/9.6/redhat/rhel-7-x86_64/pgdg-centos96-9.6-3.noarch.rpm',
-    ensure => present, 
-    require => Package['postgresql96-contrib'], 
+package { 'pgdg-centos96':
+    ensure   => present,
+    source   => '/tmp/postgresql-repo.rpm',
+    provider => rpm,
+    require  => File['/tmp/postgresql-repo.rpm'],
   }
+$pgsql_packages = ['postgresql96-server', 'postgresql96-contrib',  ]
+  package { $pgsql_packages: ensure => 'installed' }
 
 exec { '/usr/pgsql-9.6/bin/postgresql96-setup initdb':
     refreshonly => true,
@@ -35,7 +37,7 @@ exec { 'create user':
   }
 exec { 'create database':
     user        => 'postgres',
-    command     => 'create database puppetdb;',
+    command     => 'psql -c "create database puppetdb;"',
     path        => '/bin/',
     subscribe   => Package['postgresql96-server'],
     refreshonly => true,
@@ -43,7 +45,7 @@ exec { 'create database':
   }
 exec { 'install extension pg_trgm':
     user        => 'postgres',
-    command     => "psql -c 'create extension pg_trgm;'",
+    command     => 'psql puppetdb -c "create extension pg_trgm;"',
     path        => '/bin/',
     subscribe   => Package['postgresql96-contrib'],
     refreshonly => true,

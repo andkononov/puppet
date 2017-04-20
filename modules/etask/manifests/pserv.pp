@@ -2,7 +2,7 @@ class etask::pserv {
 
 host { 'server.minsk.epam.com':
     ensure => present,
-    ip     => '192.168.0.5',
+    ip     => '127.0.0.1',
   }
 host { 'client.minsk.epam.com':
     ensure => present,
@@ -25,12 +25,4 @@ service { 'ensure puppetserver is running':
     enable => true,
     require     => File['/etc/puppetlabs/puppet/autosign.conf'],
   }
-exec { 'connect to server':
-    user        => 'root',
-    command     => 'puppet agent --test --server server.minsk.epam.com',
-    path        => '/opt/puppetlabs/bin/',
-    refreshonly => true,
-    require     => Service['ensure puppetserver is running'],
-  }
-
 }
