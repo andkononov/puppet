@@ -40,15 +40,16 @@ class exittask::postgres {
   }
 
   $set_pass_cmd = "create user ${exittask::params::pg_db_user} password '${exittask::params::pg_db_pass}'"
+  $set_db_cmd = "create database ${exittask::params::pg_db} owner ${exittask::params::pg_db_user}"
 
   exec { 'createuser':
     cwd     => '/',
-    command => "sudo -u postgres psql -c \"${set_pass_cmd}\"",
+    command => "sudo -u postgres psql -c \"${set_pass_cmd}\" || echo 'User already exists'",
     path    => ['/usr/bin', '/usr/sbin',],
   }
   exec { 'createdb':
-    cwd       => '/',
-    command   => "sudo -u postgres psql -c \"create database ${exittask::params::pg_db} owner ${exittask::params::pg_db_user}\"",
-    path      => ['/usr/bin', '/usr/sbin',],
+    cwd     => '/',
+    command => "sudo -u postgres psql -c \"${set_db_cmd}\" || echo 'Database already exists'",
+    path    => ['/usr/bin', '/usr/sbin',],
   }
 }

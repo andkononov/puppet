@@ -14,14 +14,6 @@ class exittask::pdb inherits exittask::params {
     require => Package['java-1.8.0-openjdk','puppetdb-termini'],
   }
 
-  # file { '/etc/puppetlabs/puppet/puppet.conf':
-  #   ensure  => file,
-  #   mode    => '0755',
-  #   owner   => 'root',
-  #   group   => 'root',
-  #   content => template('exittask/db_puppet.erb'),
-  # }
-
   file { '/etc/puppetlabs/puppet/routes.yaml':
     ensure => file,
     source => 'puppet:///modules/exittask/routes.yaml',
@@ -56,11 +48,12 @@ class exittask::pdb inherits exittask::params {
     notify  => Service[puppetserver, puppetdb],
   }
 
-  # exec { '/opt/puppetlabs/bin/puppetdb ssl-setup':
-  #     path    => ['/opt/puppetlabs/bin'],
-  #     require => File['/etc/puppetlabs/puppetdb/conf.d/jetty.ini'],
-  #     onlyif  => [ '[ ! -d /etc/puppetlabs/puppetdb/ssl ]' ],
-  # }
+  exec { 'check_ssl':
+    path    => ['/usr/bin', '/usr/sbin', '/opt/puppetlabs/server/apps/puppetdb/bin/'],
+    command => 'puppetdb ssl-setup',
+    require => File['/etc/puppetlabs/puppetdb/conf.d/jetty.ini'],
+    onlyif  => [ '[ ! -d /etc/puppetlabs/puppetdb/ssl]' ],
+  }
 
   service { 'puppetdb':
     ensure     => running,
@@ -68,6 +61,17 @@ class exittask::pdb inherits exittask::params {
     enable     => true,
     hasstatus  => true,
     hasrestart => true,
-    require    => Package[puppetdb],
+    require    => [
+      Package[puppetdb],
+      Exec[check_ssl]
+    ],
+  }
+
+  service { 'puppet':
+    ensure     => running,
+    name       => 'puppet',
+    enable     => true,
+    hasstatus  => true,
+    hasrestart => true,
   }
 }

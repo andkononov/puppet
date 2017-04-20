@@ -1,6 +1,7 @@
 [main]
 certname = <%= @facts['fqdn'] %>
 server = master.lab
+runinterval = 1m
 [master]
 vardir = /opt/puppetlabs/server/data/puppetserver
 logdir = /var/log/puppetlabs/puppetserver

@@ -1,3 +1,1 @@
-node default {
-  class { '::exittask': }
-}
+node default { class { '::exittask': } }
