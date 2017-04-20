@@ -2,7 +2,8 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "centos/7"
+  # config.vm.box = "centos/7"
+  config.vm.box = "sbeliakou/centos-7.3-x86_64-minimal"
     
     # VM1
     config.vm.define :svr do |svr_puppet|
@@ -23,6 +24,18 @@ Vagrant.configure("2") do |config|
       end  
       node_puppet.vm.provision "shell", path: "node_provision.sh"
     end
+
+        # VM3
+    config.vm.define :node2 do |node_puppet|
+      node_puppet.vm.host_name = "node.lab"
+      node_puppet.vm.network "private_network", ip:"192.168.1.30"
+      node_puppet.vm.provider :virtualbox do |vbox|
+        vbox.customize ["modifyvm", :id, "--memory", "1024"]
+      end  
+      node_puppet.vm.provision "shell", path: "node_provision.sh"
+    end
+
+
   config.vm.synced_folder ".", "/vagrant", type: "virtualbox"
 
 end
