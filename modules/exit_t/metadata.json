@@ -1,0 +1,10 @@
+{
+  "name": "exit_t",
+  "version": "1.1.0",
+  "author": "Raman Vashkevich",
+  "summary": "Puppet and puppetserver installation config",
+  "license": "Free",
+  "source": "https://github.com/vashkevich/puppet",
+  "project_page": "https://github.com/vashkevich/puppet"
+}
+
