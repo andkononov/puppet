@@ -1,3 +1,4 @@
+![drawing](final_screen.png)
 # This is repo for final task 
 ## Final task
 Provide single puppet module which can setup both puppet master and puppet agent current version from repositories which provided by puppetlabs for example - you delivery plan can be following:
